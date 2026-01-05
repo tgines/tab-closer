@@ -36,6 +36,11 @@ tab-closer/
 
 ## Changelog
 
+### v0.1.1
+- Fixed context menu to appear on tab right-click (using `contexts: ['tab']`)
+- Added context menu to both tab bar and page content for flexibility
+- Added README.md for GitHub
+
 ### v0.1.0 (Initial)
 - Basic extension structure
 - Tab activity tracking

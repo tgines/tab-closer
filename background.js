@@ -22,10 +22,17 @@ chrome.runtime.onInstalled.addListener(async () => {
     });
   }
 
-  // Create context menu
+  // Create context menu for tab bar (right-click on tab)
   chrome.contextMenus.create({
     id: 'toggleProtection',
-    title: 'Toggle Tab Protection',
+    title: 'Protect/Unprotect Tab',
+    contexts: ['tab']
+  });
+
+  // Also add to page context menu (right-click on page content)
+  chrome.contextMenus.create({
+    id: 'toggleProtectionPage',
+    title: 'Protect/Unprotect This Tab',
     contexts: ['page']
   });
 
@@ -101,7 +108,7 @@ chrome.tabs.onRemoved.addListener(async (tabId) => {
 
 // Handle context menu click
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
-  if (info.menuItemId === 'toggleProtection' && tab?.id) {
+  if ((info.menuItemId === 'toggleProtection' || info.menuItemId === 'toggleProtectionPage') && tab?.id) {
     await toggleTabProtection(tab.id);
   }
 });
