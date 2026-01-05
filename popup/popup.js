@@ -144,9 +144,11 @@ async function loadTabs(settings) {
     const anchorBtn = document.createElement('button');
     anchorBtn.className = `anchor-btn ${isManuallyProtected ? 'protected' : 'unprotected'}`;
     anchorBtn.title = isManuallyProtected ? 'Remove protection' : 'Protect this tab';
-    anchorBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-      <path d="M8 1a1 1 0 0 1 1 1v1h1a1 1 0 0 1 0 2H9v1.5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V5H6a1 1 0 0 1 0-2h1V2a1 1 0 0 1 1-1z"/>
-      <path d="M8 8c-2.2 0-4 1.8-4 4v2.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V14h4v.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V12c0-2.2-1.8-4-4-4zm-2 4a2 2 0 1 1 4 0v1H6v-1z"/>
+    anchorBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 6v16"/>
+      <path d="m19 13 2-1a9 9 0 0 1-18 0l2 1"/>
+      <path d="M9 11h6"/>
+      <circle cx="12" cy="4" r="2"/>
     </svg>`;
     anchorBtn.addEventListener('click', async () => {
       await toggleProtection(tab.id);
