@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Closer Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Tab Closer Settings</h1>
+    </header>
+
+    <main>
+      <section class="setting-group">
+        <h2>Stale Threshold</h2>
+        <p class="description">Close tabs that have been inactive for longer than:</p>
+
+        <div class="threshold-options">
+          <label class="radio-option">
+            <input type="radio" name="threshold" value="24">
+            <span>24 hours</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="threshold" value="48">
+            <span>48 hours</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="threshold" value="custom">
+            <span>Custom:</span>
+            <input type="number" id="customThreshold" min="1" max="720" placeholder="hours">
+            <span class="unit">hours</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="setting-group">
+        <h2>Auto-Protection</h2>
+
+        <label class="checkbox-option">
+          <input type="checkbox" id="autoProtectPinned" checked>
+          <span>Automatically protect pinned tabs</span>
+        </label>
+      </section>
+
+      <section class="setting-group">
+        <h2>Protected Domains</h2>
+        <p class="description">Tabs from these domains will never be auto-closed:</p>
+
+        <div class="domain-input-row">
+          <input type="text" id="newDomain" placeholder="e.g., github.com">
+          <button id="addDomainBtn" class="btn btn-primary">Add</button>
+        </div>
+
+        <ul id="domainList" class="domain-list">
+          <!-- Domains will be populated here -->
+        </ul>
+      </section>
+
+      <div class="save-status" id="saveStatus"></div>
+    </main>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
