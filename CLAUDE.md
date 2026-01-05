@@ -37,8 +37,8 @@ tab-closer/
 ## Changelog
 
 ### v0.1.1
-- Fixed context menu to appear on tab right-click (using `contexts: ['tab']`)
-- Added context menu to both tab bar and page content for flexibility
+- Removed unsupported `tab` context (Dia only supports: action, all, audio, browser_action, editable, frame, image, launcher, link, page, page_action, selection, video)
+- Context menu now only on page content (right-click on webpage)
 - Added README.md for GitHub
 
 ### v0.1.0 (Initial)

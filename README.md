@@ -7,7 +7,6 @@ A Chrome/Chromium extension that automatically closes stale tabs based on inacti
 - **Auto-close stale tabs** - Automatically closes tabs that haven't been active for a configurable period (24h, 48h, or custom)
 - **Activity-based tracking** - Tracks when you last viewed each tab, not when it was opened
 - **Tab protection** - Protect important tabs from being auto-closed via:
-  - Right-click on a tab → "Protect/Unprotect Tab"
   - Right-click on page content → "Protect/Unprotect This Tab"
   - Toggle in the extension popup
 - **Auto-protection** - Pinned tabs and configured domains are automatically protected
