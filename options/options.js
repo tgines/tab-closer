@@ -60,10 +60,23 @@ function setupEventListeners() {
   });
 
   // Custom threshold input
-  document.getElementById('customThreshold').addEventListener('input', () => {
+  const customInput = document.getElementById('customThreshold');
+  const errorMsg = document.getElementById('thresholdError');
+
+  customInput.addEventListener('input', () => {
     // Select the custom radio when typing in the input
     document.querySelector('input[value="custom"]').checked = true;
-    saveSettings();
+
+    // Validate and show error if needed
+    const value = parseInt(customInput.value, 10);
+    if (customInput.value !== '' && (isNaN(value) || value < 1)) {
+      customInput.classList.add('error');
+      errorMsg.classList.add('visible');
+    } else {
+      customInput.classList.remove('error');
+      errorMsg.classList.remove('visible');
+      saveSettings();
+    }
   });
 
   // Auto-protect pinned checkbox
