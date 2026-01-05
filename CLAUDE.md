@@ -23,9 +23,11 @@ tab-closer/
 ## Features
 
 - Configurable stale threshold (24h, 48h, or custom)
-- Tab protection via context menu and popup UI
+- Tab protection via context menu and popup UI (anchor icon)
 - Auto-protection for pinned tabs and configured domains
 - Silent automatic closing
+- Pause/resume functionality with badge indicator
+- Icons: Lucide (settings gear, anchor)
 
 ## Testing in Dia Browser
 
@@ -35,6 +37,13 @@ tab-closer/
 4. After changes, click refresh icon on the extension card
 
 ## Changelog
+
+### v0.1.4
+- Switched to Lucide icons (settings gear, anchor)
+- Custom threshold input validation (minimum 1 hour)
+- Error message shown for invalid values
+- Custom input disabled when preset (24h/48h) is selected
+- Lighter placeholder color
 
 ### v0.1.3
 - Removed redundant "Active" badge from popup
