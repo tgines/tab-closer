@@ -209,35 +209,42 @@ h1 {
   font-weight: 500;
 }
 
-.protect-btn {
-  padding: 4px 10px;
-  font-size: 11px;
-  font-weight: 500;
-  border-radius: 4px;
+/* Anchor protection button */
+.anchor-btn {
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: all 0.15s ease;
+  padding: 6px;
+  border-radius: 4px;
   flex-shrink: 0;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.protect-btn.unprotected {
-  background: #f0f0f0;
-  border: 1px solid #ddd;
+.anchor-btn.unprotected {
+  color: #ccc;
+  opacity: 0;
+}
+
+.tab-item:hover .anchor-btn.unprotected {
+  opacity: 1;
+}
+
+.anchor-btn.unprotected:hover {
   color: #666;
+  background: #f0f0f0;
 }
 
-.protect-btn.unprotected:hover {
-  background: #e5e5e5;
-  color: #333;
+.anchor-btn.protected {
+  color: #28a745;
+  opacity: 1;
 }
 
-.protect-btn.protected {
-  background: #28a745;
-  border: 1px solid #28a745;
-  color: #fff;
-}
-
-.protect-btn.protected:hover {
-  background: #218838;
+.anchor-btn.protected:hover {
+  color: #218838;
+  background: #e8f5e9;
 }
 
 .badge {
@@ -258,11 +265,6 @@ h1 {
 .badge.domain-protected {
   background: #f3e5f5;
   color: #7b1fa2;
-}
-
-.badge.active {
-  background: #e8f5e9;
-  color: #388e3c;
 }
 
 .empty-state {

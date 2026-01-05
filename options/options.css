@@ -173,6 +173,18 @@ h2 {
   margin-bottom: 0;
 }
 
+.domain-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.domain-anchor {
+  color: #28a745;
+  display: flex;
+  align-items: center;
+}
+
 .domain-name {
   font-family: 'SF Mono', Monaco, Consolas, monospace;
   font-size: 13px;

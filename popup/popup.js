@@ -124,12 +124,6 @@ async function loadTabs(settings) {
     meta.appendChild(age);
 
     // Badges
-    if (isActive) {
-      const badge = document.createElement('span');
-      badge.className = 'badge active';
-      badge.textContent = 'Active';
-      meta.appendChild(badge);
-    }
     if (isPinned) {
       const badge = document.createElement('span');
       badge.className = 'badge pinned';
@@ -146,15 +140,19 @@ async function loadTabs(settings) {
     info.appendChild(meta);
     tabItem.appendChild(info);
 
-    // Protection button
-    const protectBtn = document.createElement('button');
-    protectBtn.className = `protect-btn ${isManuallyProtected ? 'protected' : 'unprotected'}`;
-    protectBtn.textContent = isManuallyProtected ? 'Protected' : 'Protect';
-    protectBtn.addEventListener('click', async () => {
+    // Anchor protection button
+    const anchorBtn = document.createElement('button');
+    anchorBtn.className = `anchor-btn ${isManuallyProtected ? 'protected' : 'unprotected'}`;
+    anchorBtn.title = isManuallyProtected ? 'Remove protection' : 'Protect this tab';
+    anchorBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+      <path d="M8 1a1 1 0 0 1 1 1v1h1a1 1 0 0 1 0 2H9v1.5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V5H6a1 1 0 0 1 0-2h1V2a1 1 0 0 1 1-1z"/>
+      <path d="M8 8c-2.2 0-4 1.8-4 4v2.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V14h4v.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V12c0-2.2-1.8-4-4-4zm-2 4a2 2 0 1 1 4 0v1H6v-1z"/>
+    </svg>`;
+    anchorBtn.addEventListener('click', async () => {
       await toggleProtection(tab.id);
       await loadTabs(settings);
     });
-    tabItem.appendChild(protectBtn);
+    tabItem.appendChild(anchorBtn);
 
     tabList.appendChild(tabItem);
   }

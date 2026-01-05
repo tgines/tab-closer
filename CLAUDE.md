@@ -36,6 +36,13 @@ tab-closer/
 
 ## Changelog
 
+### v0.1.3
+- Removed redundant "Active" badge from popup
+- Changed protection button to playful anchor icon
+- Anchor appears on row hover for unprotected tabs
+- Green anchor always visible for protected tabs
+- Added anchor icon to protected domains in options page
+
 ### v0.1.2
 - Added pause/enable toggle to temporarily disable auto-closing
 - Toggle available in popup header and options page
