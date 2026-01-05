@@ -88,6 +88,11 @@ async function saveSettings() {
   let staleThresholdHours;
   if (selectedRadio.value === 'custom') {
     staleThresholdHours = parseInt(customInput.value, 10) || 24;
+    // Ensure minimum of 1 hour
+    if (staleThresholdHours < 1) {
+      staleThresholdHours = 1;
+      customInput.value = 1;
+    }
   } else {
     staleThresholdHours = parseInt(selectedRadio.value, 10);
   }
