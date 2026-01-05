@@ -36,6 +36,12 @@ tab-closer/
 
 ## Changelog
 
+### v0.1.2
+- Added pause/enable toggle to temporarily disable auto-closing
+- Toggle available in popup header and options page
+- Badge shows "OFF" on extension icon when paused
+- Status bar shows paused state in popup
+
 ### v0.1.1
 - Removed unsupported `tab` context (Dia only supports: action, all, audio, browser_action, editable, frame, image, launcher, link, page, page_action, selection, video)
 - Context menu now only on page content (right-click on webpage)

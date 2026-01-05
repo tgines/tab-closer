@@ -4,6 +4,16 @@ const ALARM_NAME = 'staleTabCheck';
 const CHECK_INTERVAL_MINUTES = 5;
 const DEFAULT_STALE_HOURS = 24;
 
+// Update badge based on paused state
+async function updateBadge(paused) {
+  if (paused) {
+    await chrome.action.setBadgeText({ text: 'OFF' });
+    await chrome.action.setBadgeBackgroundColor({ color: '#888888' });
+  } else {
+    await chrome.action.setBadgeText({ text: '' });
+  }
+}
+
 // Initialize extension
 chrome.runtime.onInstalled.addListener(async () => {
   // Set up periodic alarm for stale tab checking
@@ -13,14 +23,18 @@ chrome.runtime.onInstalled.addListener(async () => {
   });
 
   // Initialize default settings if not set
-  const settings = await chrome.storage.local.get(['staleThresholdHours', 'protectedDomains', 'autoProtectPinned']);
+  const settings = await chrome.storage.local.get(['staleThresholdHours', 'protectedDomains', 'autoProtectPinned', 'paused']);
   if (settings.staleThresholdHours === undefined) {
     await chrome.storage.local.set({
       staleThresholdHours: DEFAULT_STALE_HOURS,
       protectedDomains: [],
-      autoProtectPinned: true
+      autoProtectPinned: true,
+      paused: false
     });
   }
+
+  // Initialize badge
+  await updateBadge(settings.paused || false);
 
   // Create context menu (right-click on page content)
   chrome.contextMenus.create({
@@ -50,6 +64,18 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === ALARM_NAME) {
     await closeStaleTabs();
   }
+});
+
+// Listen for storage changes to update badge
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === 'local' && changes.paused !== undefined) {
+    updateBadge(changes.paused.newValue);
+  }
+});
+
+// Initialize badge on service worker startup
+chrome.storage.local.get('paused').then(({ paused }) => {
+  updateBadge(paused || false);
 });
 
 // Track tab activation (user switches to a tab)
@@ -136,8 +162,14 @@ async function closeStaleTabs() {
     'tabActivity',
     'staleThresholdHours',
     'protectedDomains',
-    'autoProtectPinned'
+    'autoProtectPinned',
+    'paused'
   ]);
+
+  // Skip if paused
+  if (storage.paused) {
+    return;
+  }
 
   const {
     tabActivity = {},

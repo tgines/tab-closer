@@ -11,12 +11,17 @@ async function loadSettings() {
   const settings = await chrome.storage.local.get([
     'staleThresholdHours',
     'protectedDomains',
-    'autoProtectPinned'
+    'autoProtectPinned',
+    'paused'
   ]);
 
   const threshold = settings.staleThresholdHours || 24;
   const protectedDomains = settings.protectedDomains || [];
   const autoProtectPinned = settings.autoProtectPinned !== false;
+  const paused = settings.paused || false;
+
+  // Set enabled toggle (checked = enabled = not paused)
+  document.getElementById('enabledToggle').checked = !paused;
 
   // Set threshold radio/custom input
   const radioOptions = document.querySelectorAll('input[name="threshold"]');
@@ -42,6 +47,13 @@ async function loadSettings() {
 }
 
 function setupEventListeners() {
+  // Enabled toggle
+  document.getElementById('enabledToggle').addEventListener('change', async (e) => {
+    const paused = !e.target.checked;
+    await chrome.storage.local.set({ paused });
+    showSaveStatus();
+  });
+
   // Threshold radio buttons
   document.querySelectorAll('input[name="threshold"]').forEach(radio => {
     radio.addEventListener('change', saveSettings);

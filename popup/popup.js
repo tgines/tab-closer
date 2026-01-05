@@ -4,9 +4,22 @@ document.addEventListener('DOMContentLoaded', init);
 
 async function init() {
   // Load settings and display threshold
-  const settings = await chrome.storage.local.get(['staleThresholdHours', 'protectedDomains', 'autoProtectPinned']);
+  const settings = await chrome.storage.local.get(['staleThresholdHours', 'protectedDomains', 'autoProtectPinned', 'paused']);
   const threshold = settings.staleThresholdHours || 24;
+  const paused = settings.paused || false;
+
   document.getElementById('threshold').textContent = threshold;
+
+  // Set up pause toggle
+  const pauseToggle = document.getElementById('pauseToggle');
+  pauseToggle.checked = !paused; // Checked = enabled (not paused)
+  updateStatusDisplay(paused, threshold);
+
+  pauseToggle.addEventListener('change', async () => {
+    const newPaused = !pauseToggle.checked;
+    await chrome.storage.local.set({ paused: newPaused });
+    updateStatusDisplay(newPaused, threshold);
+  });
 
   // Set up settings button
   document.getElementById('settingsBtn').addEventListener('click', () => {
@@ -15,6 +28,17 @@ async function init() {
 
   // Load and display tabs
   await loadTabs(settings);
+}
+
+function updateStatusDisplay(paused, threshold) {
+  const statusInfo = document.getElementById('statusInfo');
+  if (paused) {
+    statusInfo.className = 'threshold-info paused';
+    statusInfo.innerHTML = '<strong>Paused</strong> - tabs will not be auto-closed';
+  } else {
+    statusInfo.className = 'threshold-info';
+    statusInfo.innerHTML = `Closing tabs inactive for <span>${threshold}</span>h`;
+  }
 }
 
 async function loadTabs(settings) {
