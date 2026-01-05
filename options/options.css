@@ -90,6 +90,12 @@ h2 {
   color: #bbb;
 }
 
+.radio-option input[type="number"]:disabled {
+  background: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
 .radio-option input[type="number"]:focus {
   outline: none;
   border-color: #0066cc;

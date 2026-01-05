@@ -54,14 +54,31 @@ function setupEventListeners() {
     showSaveStatus();
   });
 
-  // Threshold radio buttons
-  document.querySelectorAll('input[name="threshold"]').forEach(radio => {
-    radio.addEventListener('change', saveSettings);
-  });
-
-  // Custom threshold input
+  // Custom threshold input elements
   const customInput = document.getElementById('customThreshold');
   const errorMsg = document.getElementById('thresholdError');
+
+  // Function to update custom input state
+  function updateCustomInputState() {
+    const isCustomSelected = document.querySelector('input[value="custom"]').checked;
+    customInput.disabled = !isCustomSelected;
+    if (!isCustomSelected) {
+      customInput.value = '';
+      customInput.classList.remove('error');
+      errorMsg.classList.remove('visible');
+    }
+  }
+
+  // Threshold radio buttons
+  document.querySelectorAll('input[name="threshold"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      updateCustomInputState();
+      saveSettings();
+    });
+  });
+
+  // Initialize custom input state
+  updateCustomInputState();
 
   customInput.addEventListener('input', () => {
     // Select the custom radio when typing in the input
